@@ -1,0 +1,8 @@
+[package]
+name = "hero-curses"
+version = "0.1.0"
+authors = ["Adilson Schmitt Junior <adilsonschj@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cursive = "0.10"
