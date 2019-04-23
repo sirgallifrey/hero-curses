@@ -3,17 +3,30 @@ extern crate cursive;
 mod characters;
 mod play_states;
 
-use cursive::views::{Dialog, TextView};
+use crate::characters::{Character, Player, PlayerClass};
+use cursive::theme::{BaseColor, BorderStyle, Color, ColorStyle, Style};
+use cursive::view::Position;
+use cursive::views::LayerPosition;
+use cursive::views::{BoxView, Dialog, DummyView, LinearLayout, TextView, Layer};
 use cursive::Cursive;
-use crate::characters::{Player, PlayerClass, Character};
 
 fn main() {
   let mut siv = Cursive::default();
 
   // We can quit by pressing `q`
   siv.add_global_callback('q', show_quit_dialog);
+  
+  // siv.add_fullscreen_layer(
+  //   LinearLayout::vertical()
+  //     .child(BoxView::with_full_height(DummyView))
+  //     .child(
+  //       LinearLayout::horizontal()
+  //         .child(BoxView::with_full_width(DummyView))
+  //         .child(TextView::new("Press Q to quit.")),
+  //     ),
+  // );
 
-  // let player = Player { 
+  // let player = Player {
   //   strenght: 10,
   //   constitution: 12,
   //   dexterety: 15,
@@ -41,7 +54,9 @@ fn show_quit_dialog(siv: &mut cursive::Cursive) {
     // Most views can be configured in a chainable way
     Dialog::around(TextView::new("Do you really want to quit the game?"))
       .title("Quiting")
-      .button("Cancel", |s| { s.pop_layer(); })
+      .button("Cancel", |s| {
+        s.pop_layer();
+      })
       .button("Quit", |s| s.quit()),
   );
 }
